@@ -1,22 +1,156 @@
 {% extends 'base.html' %}
 {% block content %}
-<section id="projetos" class="min-h-screen p-10">
-    <h2 class="text-4xl font-bold text-center mb-10">Meus Projetos</h2>
-    <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-[#112240] p-6 rounded">
-            <h3 class="text-xl font-bold mb-4">Projeto 1</h3>
-            <p class="text-gray-400 mb-4">Descrição breve do problema e solução.</p>
-            <a href="#" class="bg-[#64FFDA] text-[#0A192F] px-4 py-2 rounded">Ver Detalhes</a>
-        </div>
-        <div class="bg-[#112240] p-6 rounded">
-            <h3 class="text-xl font-bold mb-4">Projeto 2</h3>
-            <p class="text-gray-400 mb-4">Descrição breve do problema e solução.</p>
-            <a href="#" class="bg-[#64FFDA] text-[#0A192F] px-4 py-2 rounded">Ver Detalhes</a>
-        </div>
-        <div class="bg-[#112240] p-6 rounded">
-            <h3 class="text-xl font-bold mb-4">Projeto 3</h3>
-            <p class="text-gray-400 mb-4">Descrição breve do problema e solução.</p>
-            <a href="#" class="bg-[#64FFDA] text-[#0A192F] px-4 py-2 rounded">Ver Detalhes</a>
+<section id="projetos" class="projects">
+    <div class="projects-shell">
+        <span class="section-kicker">Projetos em destaque</span>
+        <h2 class="section-title">Meus Projetos</h2>
+        <p class="about-lead">
+            Explorando soluções com Django, Python e interfaces modernas para transformar ideias em experiências digitais claras e funcionais.
+        </p>
+
+        <div class="project-grid">
+            <article class="project-card">
+                <div class="project-header">
+                    <span class="project-badge">Django • Python • SEO</span>
+                    <h3>Portfolio DS</h3>
+                </div>
+
+                <div class="project-meta-grid">
+                    <div class="project-meta-item">
+                        <span class="meta-label">Problema</span>
+                        <p>Necessidade de apresentar meu perfil profissional de forma clara, moderna e com boa presença online.</p>
+                    </div>
+                    <div class="project-meta-item">
+                        <span class="meta-label">Solução</span>
+                        <p>Criei um portfólio em Django com layout responsivo, navegação prática e estrutura SEO básica.</p>
+                    </div>
+                    <div class="project-meta-item">
+                        <span class="meta-label">Papel</span>
+                        <p>Planejei, desenvolvi e organizei a arquitetura visual e técnica do projeto de ponta a ponta.</p>
+                    </div>
+                    <div class="project-meta-item">
+                        <span class="meta-label">Resultado</span>
+                        <p>Obtenho uma vitrine profissional mais sólida, com melhor experiência de navegação e apresentação de competências.</p>
+                    </div>
+                </div>
+
+                <div class="project-tech">
+                    <span>Python</span>
+                    <span>Django</span>
+                    <span>HTML</span>
+                    <span>CSS</span>
+                </div>
+
+                <ul class="project-features">
+                    <li>Interface moderna e responsiva</li>
+                    <li>Menu mobile com navegação fluida</li>
+                    <li>SEO básico para indexação</li>
+                    <li>Estrutura modular pronta para escalar</li>
+                </ul>
+
+                <div class="hero-actions">
+                    <a href="https://github.com/August1312/portfolio-ds" target="_blank" rel="noreferrer" class="btn-primary project-btn">
+                        <i class="fa-brands fa-github"></i> GitHub
+                    </a>
+                    <a href="http://127.0.0.1:8000/" class="btn-outline project-btn">
+                        <i class="fa-solid fa-play"></i> Demo Local
+                    </a>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <div class="project-header">
+                    <span class="project-badge">Em desenvolvimento</span>
+                    <h3>Dashboard Analytics</h3>
+                </div>
+
+                <div class="project-meta-grid">
+                    <div class="project-meta-item">
+                        <span class="meta-label">Problema</span>
+                        <p>Dados dispersos e pouco organizados dificultavam a leitura rápida de métricas importantes.</p>
+                    </div>
+                    <div class="project-meta-item">
+                        <span class="meta-label">Solução</span>
+                        <p>Organizei informações em um painel visual com foco em clareza, filtros e leitura ágil.</p>
+                    </div>
+                    <div class="project-meta-item">
+                        <span class="meta-label">Papel</span>
+                        <p>Estruturei a visão de interface e a lógica de apresentação dos indicadores.</p>
+                    </div>
+                    <div class="project-meta-item">
+                        <span class="meta-label">Resultado</span>
+                        <p>Criei uma base para análise mais intuitiva, com melhor tomada de decisão e organização dos dados.</p>
+                    </div>
+                </div>
+
+                <div class="project-tech">
+                    <span>JavaScript</span>
+                    <span>Charting</span>
+                    <span>UI</span>
+                </div>
+
+                <ul class="project-features">
+                    <li>Layouts claros para métricas</li>
+                    <li>Visual de dados com foco em leitura</li>
+                    <li>Estrutura pronta para expansão</li>
+                </ul>
+
+                <div class="hero-actions">
+                    <a href="#" class="btn-primary project-btn">
+                        <i class="fa-brands fa-github"></i> GitHub
+                    </a>
+                    <a href="#" class="btn-outline project-btn">
+                        <i class="fa-solid fa-play"></i> Demo Local
+                    </a>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <div class="project-header">
+                    <span class="project-badge">Próximo projeto</span>
+                    <h3>API & Automação</h3>
+                </div>
+
+                <div class="project-meta-grid">
+                    <div class="project-meta-item">
+                        <span class="meta-label">Problema</span>
+                        <p>Processos manuais e repetitivos geravam perda de tempo e risco de inconsistência.</p>
+                    </div>
+                    <div class="project-meta-item">
+                        <span class="meta-label">Solução</span>
+                        <p>Vou criar integrações e fluxos automatizados para reduzir tarefas manuais e aumentar produtividade.</p>
+                    </div>
+                    <div class="project-meta-item">
+                        <span class="meta-label">Papel</span>
+                        <p>Definirei arquitetura, regras de integração e critérios de automação do fluxo.</p>
+                    </div>
+                    <div class="project-meta-item">
+                        <span class="meta-label">Resultado</span>
+                        <p>Busca-se melhorar a velocidade operacional e a confiabilidade dos processos.</p>
+                    </div>
+                </div>
+
+                <div class="project-tech">
+                    <span>Python</span>
+                    <span>APIs</span>
+                    <span>Automação</span>
+                </div>
+
+                <ul class="project-features">
+                    <li>Integração com endpoints externos</li>
+                    <li>Fluxo automatizado e organizado</li>
+                    <li>Arquitetura simples e escalável</li>
+                </ul>
+
+                <div class="hero-actions">
+                    <a href="#" class="btn-primary project-btn">
+                        <i class="fa-brands fa-github"></i> GitHub
+                    </a>
+                    <a href="#" class="btn-outline project-btn">
+                        <i class="fa-solid fa-play"></i> Demo Local
+                    </a>
+                </div>
+            </article>
         </div>
     </div>
 </section>
