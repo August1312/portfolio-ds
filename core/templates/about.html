@@ -1,17 +1,156 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-<section id="sobre" class="min-h-screen flex flex-col items-center justify-center text-center">
-    <h2 class="text-4xl font-bold mb-6">Sobre Mim</h2>
-    <p class="text-gray-400 max-w-2xl mb-8">
-        Sou Danilo Silva dos Santos, Programador, Analista de Suporte e Analista de Sistemas.
-        Minha trajetória combina desenvolvimento, suporte técnico e análise de sistemas, com foco em eficiência e inovação.
-    </p>
-    <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
-        <div class="text-[#64FFDA]">🐍 Python</div>
-        <div class="text-[#64FFDA]">🌐 Django</div>
-        <div class="text-[#64FFDA]">📄 HTML</div>
-        <div class="text-[#64FFDA]">🎨 CSS</div>
-        <div class="text-[#64FFDA]">🔗 APIs</div>
+
+<section class="about">
+    <div class="about-shell">
+        <div class="about-intro">
+            <h1 class="section-title">Danilo Silva dos Santos</h1>
+            <p class="about-lead">
+                Sou profissional de tecnologia com foco em <span class="highlight">Programação</span>,
+                <span class="highlight">Suporte Técnico</span> e <span class="highlight">Análise de Sistemas</span>.
+                A minha atuação combina solução prática, organização e interesse por interfaces claras e funcionais.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#projetos" class="btn-primary">Ver Projetos</a>
+                <a href="#contato" class="btn-outline">Entre em Contato</a>
+            </div>
+        </div>
+
+        <div class="about-grid">
+            <article class="about-card about-card-full">
+                <h2><i class="fa-solid fa-graduation-cap"></i> Formação acadêmica</h2>
+                <div class="degree-highlight">
+                    <span class="degree-icon">🎓</span>
+                    <div>
+                        <p class="degree-title">Análise e Desenvolvimento de Sistemas</p>
+                        <p class="degree-date">Anhanguera - Colação do diploma em 2026</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="about-card about-card-full">
+                <h2><i class="fa-solid fa-laptop-code"></i> Stacks principais</h2>
+                <div class="stack-category-grid">
+                    <div class="stack-category">
+                        <h3>Linguagens de programação</h3>
+                        <ul class="stack-list">
+                            <li><strong>Python</strong> — lógica, automação, back-end e integração de sistemas.</li>
+                            <li><strong>JavaScript</strong> — interatividade, manipulação do DOM, desenvolvimento
+                                front‑end.</li>
+                            <li><strong>CSS</strong> — apresentação visual, responsividade e refinamento da interface.
+                            </li>
+                            <li><strong>HTML</strong> — estruturação de conteúdo e páginas web.</li>
+                        </ul>
+                    </div>
+
+                    <div class="stack-category">
+                        <h3>Frameworks</h3>
+                        <ul class="stack-list">
+                            <li><strong>Django</strong> — desenvolvimento web com arquitetura organizada e
+                                produtividade.</li>
+                            <li><strong>Flask</strong> — construção de APIs REST leves e flexíveis.</li>
+                            <li><strong>FastAPI</strong> — desenvolvimento de APIs REST modernas, alta performance,
+                                validação de dados e integração com sistemas back‑end.</li>
+                            <li><strong>Django REST Framework</strong> — criação de APIs robustas, serialização de
+                                dados, autenticação e integração escalável com aplicações web.</li>
+                            <li><strong>Tailwind CSS</strong> — estilização rápida e consistente em interfaces modernas.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="stack-category">
+                        <h3>Ferramentas</h3>
+                        <ul class="stack-list">
+                            <li><strong>Git / GitHub</strong> — versionamento, colaboração e organização de projetos.
+                            </li>
+                            <li><strong>Páginas do GitHub</strong> — hospedagem de sites estáticos e documentação
+                                técnica.</li>
+                            <li><strong>Visual Studio Code</strong> — produtividade, extensões e desenvolvimento
+                                multiplataforma.</li>
+                            <li><strong>PyCharm</strong> — IDE avançada para Python, depuração e integração com
+                                frameworks.</li>
+                            <li><strong>Trello</strong> — gestão de tarefas, quadros visuais e colaboração em equipe.
+                            </li>
+                            <li><strong>Jira</strong> — planejamento ágil, acompanhamento de sprints e controle de
+                                backlog.</li>
+                            <li><strong>ClickUp</strong> — organização de projetos, automação de fluxos e produtividade
+                                integrada.</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <article class="about-card about-card-full">
+                <h2><i class="fa-brands fa-github"></i> Experiência prática</h2>
+                <p>
+                    Nos <a href="https://github.com/August1312" target="_blank" rel="noopener">repositórios públicos no
+                        GitHub</a>,
+                    desenvolvo projetos com foco em integração de APIs, automação em Python e aplicações web responsivas
+                    com Django.
+                </p>
+            </article>
+
+            <article class="about-card about-card-full">
+                <h2><i class="fa-solid fa-certificate"></i> Certificações</h2>
+                <div class="cert-column">
+                    <div class="cert-group">
+                        <h3>Linguagens</h3>
+                        <ul>
+                            <li>Estruturas de Dados em Python</li>
+                            <li>Introdução à Análise de Dados com Python</li>
+                            <li>Introdução à Linguagem Python</li>
+                            <li>Introdução ao JavaScript</li>
+                            <li>Comando Básico HTML, CSS e JavaScript</li>
+                            <li>HTML - Básico</li>
+                        </ul>
+                    </div>
+
+                    <div class="cert-group">
+                        <h3>Infra / Cloud</h3>
+                        <ul>
+                            <li>Google Cloud Computing Foundations: Data, ML, and AI</li>
+                            <li>Build and Secure Networks in Google Cloud</li>
+                            <li>Google Cloud Computing Foundations: Networking</li>
+                            <li>Perform Foundational Infrastructure Tasks in Google Cloud</li>
+                            <li>Google Cloud Computing Foundations: Cloud Computing Fundamentals</li>
+                            <li>Google Cloud Computing Foundations: Infrastructure in Google Cloud</li>
+                        </ul>
+                    </div>
+
+                    <div class="cert-group">
+                        <h3>Ferramentas</h3>
+                        <ul>
+                            <li>Visual Studio Code: Produtividade Absoluta</li>
+                            <li>Git e GitHub do Básico ao Avançado</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <article class="about-card about-card-wide">
+                <h2><i class="fa-solid fa-briefcase"></i> Resumo profissional</h2>
+                <ul class="resume-list">
+                    <li>Atuo com suporte técnico, análise de sistemas e desenvolvimento de soluções digitais com foco em
+                        clareza, eficiência e experiência do usuário.</li>
+                    <li>Transformo demandas operacionais em processos mais organizados, com atenção à qualidade,
+                        manutenção e otimização contínua.</li>
+                    <li>Tenho perfil voltado para resolução prática de problemas, comunicação técnica clara e melhoria
+                        de serviços digitais.</li>
+                    <li>Busco aplicar conhecimentos em Python, Django, HTML, CSS e integração de APIs para criar
+                        soluções funcionais e bem estruturadas.</li>
+                </ul>
+                <p>
+                    Sou um profissional com visão técnica e comercial, capaz de conectar suporte, análise e
+                    desenvolvimento para entregar
+                    soluções mais objetivas e alinhadas às necessidades do negócio. Meu objetivo é crescer em projetos
+                    que valorizem
+                    organização, inovação e impacto real na experiência dos usuários.
+                </p>
+            </article>
+        </div>
     </div>
 </section>
+
 {% endblock %}
