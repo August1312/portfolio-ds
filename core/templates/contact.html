@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<section id="contato" class="min-h-screen flex flex-col items-center justify-center">
+    <h2 class="text-4xl font-bold mb-6">Entre em Contato</h2>
+    <div class="flex flex-col md:flex-row gap-10">
+        <div class="space-y-4">
+            <a href="https://www.linkedin.com/in/danilo-silva-dos-santos-66b17b28b/" class="text-[#64FFDA]">LinkedIn</a>
+            <a href="https://github.com/" class="text-[#64FFDA]">GitHub</a>
+            <a href="mailto:danilo@email.com" class="text-[#64FFDA]">E-mail</a>
+        </div>
+        <form method="post" class="bg-[#112240] p-6 rounded w-80">
+            {% csrf_token %}
+            <input type="text" name="nome" placeholder="Nome" class="w-full mb-4 p-2 rounded">
+            <input type="email" name="email" placeholder="E-mail" class="w-full mb-4 p-2 rounded">
+            <textarea name="mensagem" placeholder="Mensagem" class="w-full mb-4 p-2 rounded"></textarea>
+            <button type="submit" class="bg-[#64FFDA] text-[#0A192F] px-4 py-2 rounded">Enviar</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

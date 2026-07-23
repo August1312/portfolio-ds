@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section id="analytics" class="min-h-screen p-10">
+    <h2 class="text-4xl font-bold text-center mb-10">Acessos em Tempo Real</h2>
+    <div class="flex flex-col md:flex-row gap-10">
+        <canvas id="accessChart" class="bg-[#112240] p-6 rounded w-full md:w-2/3"></canvas>
+        <div class="bg-[#112240] p-6 rounded w-full md:w-1/3 space-y-4">
+            <p class="text-gray-400">País: <span id="country">Brasil</span></p>
+            <p class="text-gray-400">Cidade: <span id="city">São Paulo</span></p>
+            <p class="text-gray-400">Total de Acessos: <span id="total">0</span></p>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'js/analytics.js' %}"></script>
+</section>
+{% endblock %}

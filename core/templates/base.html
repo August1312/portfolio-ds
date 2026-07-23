@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfólio profissional de Danilo Silva dos Santos com projetos, contato e analytics.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Portfólio - Danilo Silva dos Santos">
+    <meta property="og:title" content="Portfólio - Danilo Silva dos Santos">
+    <meta property="og:description" content="Portfólio profissional de Danilo Silva dos Santos com projetos, contato e analytics.">
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/roles-illustration.png' %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Portfólio - Danilo Silva dos Santos">
+    <meta name="twitter:description" content="Portfólio profissional de Danilo Silva dos Santos com projetos, contato e analytics.">
+    <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/roles-illustration.png' %}">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <link rel="icon" type="image/svg+xml" href="{% static 'images/favicon.svg' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicon.svg' %}">
+    <link rel="apple-touch-icon" href="{% static 'images/favicon.svg' %}">
+    <title>Portfólio - Danilo Silva dos Santos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" rel="stylesheet">
+</head>
+
+<body class="bg-[#0A192F] text-white font-inter">
+    <nav class="navbar">
+        <div class="logo">DS</div>
+        <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+            <span class="nav-icon" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+        </button>
+        <div class="nav-links">
+            <a href="{% url 'home' %}" class="nav-link {% if request.path == '/' %}active{% endif %}"><i class="fa-solid fa-house"></i>Home</a>
+            <a href="{% url 'about' %}" class="nav-link {% if request.path == '/sobre/' %}active{% endif %}"><i class="fa-solid fa-user"></i>Sobre Mim</a>
+            <a href="{% url 'projects' %}" class="nav-link {% if request.path == '/projetos/' %}active{% endif %}"><i class="fa-solid fa-folder-open"></i>Projetos</a>
+            <a href="{% url 'contact' %}" class="nav-link {% if request.path == '/contato/' %}active{% endif %}"><i class="fa-solid fa-envelope"></i>Contato</a>
+            <a href="{% url 'analytics' %}" class="nav-link {% if request.path == '/analytics/' %}active{% endif %}"><i class="fa-solid fa-chart-column"></i>Analytics</a>
+        </div>
+    </nav>
+    {% block content %}{% endblock %}
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => {
+                const isOpen = navLinks.classList.toggle('open');
+                navToggle.classList.toggle('open', isOpen);
+                navToggle.setAttribute('aria-expanded', String(isOpen));
+                navToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+            });
+
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('open');
+                    navToggle.classList.remove('open');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                    navToggle.setAttribute('aria-label', 'Abrir menu');
+                });
+            });
+        }
+    </script>
+</body>
+</html> 

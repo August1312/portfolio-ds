@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Importa fontes e ícones -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<section class="hero">
+    <h1 class="text-5xl font-bold mb-4">Danilo Silva dos Santos</h1>
+    <p class="text-[#64FFDA] text-xl mb-6">Programador | Analista de Suporte | Analista de Sistemas</p>
+    <p class="subtext mb-8">Construindo soluções digitais com eficiência e inovação.</p>
+
+    <div class="hero-actions">
+        <a href="#projetos" class="btn-primary">Ver Projetos</a>
+        <a href="#contato" class="btn-outline">Entre em Contato</a>
+    </div>
+
+    <div class="roles">
+        <div class="role">
+            <i class="fa-solid fa-code role-icon"></i>
+            <p>Programador</p>
+        </div>
+        <div class="role">
+            <i class="fa-solid fa-headset role-icon"></i>
+            <p>Analista de Suporte</p>
+        </div>
+        <div class="role">
+            <i class="fa-solid fa-gears role-icon"></i>
+            <p>Analista de Sistemas</p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
