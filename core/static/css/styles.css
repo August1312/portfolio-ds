@@ -989,6 +989,19 @@ body {
   color: var(--color-text-secondary);
 }
 
+.alert.success {
+  background-color: var(--color-bg-medium);
+  color: var(--color-text-secondary);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.alert.error {
+  background-color: var(--color-bg-medium);
+  color: var(--color-text-secondary);
+  padding: 10px;
+  border-radius: 5px;
+}
 
 @media (max-width: 768px) {
   .contact {

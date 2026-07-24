@@ -16,29 +16,31 @@
         </div>
 
         <div class="contact-form-actions">
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert {{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
             <form method="post" class="contact-form">
                 {% csrf_token %}
-                <div class="form-group">
-                    <input type="text" name="nome" placeholder="Seu nome" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Seu e-mail" required>
-                </div>
-                <div class="form-group">
-                    <textarea name="mensagem" placeholder="Sua mensagem" rows="5" required></textarea>
-                </div>
-                <button type="submit" class="btn-primary project-btn">
-                    <i class="fa-solid fa-envelope"></i> Enviar
-                </button>
+                {{ form.nome }}
+                {{ form.email }}
+                {{ form.mensagem }}
+                {{ form.captcha }}
+                <button type="submit" class="btn-primary">Enviar</button>
             </form>
         </div>
 
         <div class="hero-actions">
-            <a href="https://github.com/August1312" target="_blank" rel="noreferrer"
-                class="btn-outline project-btn">
+            <a href="https://github.com/August1312" target="_blank" rel="noreferrer" class="btn-outline project-btn">
                 <i class="fa-brands fa-github"></i> GitHub
             </a>
-            <a href="https://www.linkedin.com/in/danilo-silva-dos-santos-66b17b28b/?locale=%5D" target="_blank" class="btn-outline project-btn">
+            <a href="https://www.linkedin.com/in/danilo-silva-dos-santos-66b17b28b/?locale=%5D" target="_blank"
+                class="btn-outline project-btn">
                 <i class="fa-brands fa-linkedin"></i> LinkedIn
             </a>
             <a href="mailto:danilo.silva.santos.1312@outlook.com
@@ -48,10 +50,9 @@ Vi seu portfólio e gostaria de conversar sobre possíveis oportunidades/projeto
 Segue minha mensagem:%0D%0A%0D%0A
 [Escreva aqui sua proposta ou dúvida]%0D%0A%0D%0A
 Atenciosamente,%0D%0A
-[Seu nome]"
-class="btn-outline project-btn">
-  <i class="fa-solid fa-envelope"></i> Enviar email
-</a>
+[Seu nome]" class="btn-outline project-btn">
+                <i class="fa-solid fa-envelope"></i> Enviar email
+            </a>
         </div>
     </div>
 
