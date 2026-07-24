@@ -1,20 +1,65 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-<section id="contato" class="min-h-screen flex flex-col items-center justify-center">
-    <h2 class="text-4xl font-bold mb-6">Entre em Contato</h2>
-    <div class="flex flex-col md:flex-row gap-10">
-        <div class="space-y-4">
-            <a href="https://www.linkedin.com/in/danilo-silva-dos-santos-66b17b28b/" class="text-[#64FFDA]">LinkedIn</a>
-            <a href="https://github.com/" class="text-[#64FFDA]">GitHub</a>
-            <a href="mailto:danilo@email.com" class="text-[#64FFDA]">E-mail</a>
+
+<section class="contact">
+    <div class="contact-shell">
+        <div class="contact-intro">
+            <h1 class="section-title">Entre em Contato</h1>
+            <p class="about-lead"> Estou sempre <span class="highlight">aberto</span> a novas ideias, parcerias e
+                conversas.
+                Se você tem um <span class="highlight"> projeto </span>em mente, quer compatilhar experiências ou
+                simplesmente trocar uma palavra, será um prazer ouvir você.
+                Use o formulário abaixo ou, se preferir, fale comigo diretamente pelos <span class="highlight"> Links
+                    disponíveis.</span>
+            </p>
         </div>
-        <form method="post" class="bg-[#112240] p-6 rounded w-80">
-            {% csrf_token %}
-            <input type="text" name="nome" placeholder="Nome" class="w-full mb-4 p-2 rounded">
-            <input type="email" name="email" placeholder="E-mail" class="w-full mb-4 p-2 rounded">
-            <textarea name="mensagem" placeholder="Mensagem" class="w-full mb-4 p-2 rounded"></textarea>
-            <button type="submit" class="bg-[#64FFDA] text-[#0A192F] px-4 py-2 rounded">Enviar</button>
-        </form>
+
+        <div class="contact-form-actions">
+            <form method="post" class="contact-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" name="nome" placeholder="Seu nome" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Seu e-mail" required>
+                </div>
+                <div class="form-group">
+                    <textarea name="mensagem" placeholder="Sua mensagem" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary project-btn">
+                    <i class="fa-solid fa-envelope"></i> Enviar
+                </button>
+            </form>
+        </div>
+
+        <div class="hero-actions">
+            <a href="https://github.com/August1312" target="_blank" rel="noreferrer"
+                class="btn-outline project-btn">
+                <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/danilo-silva-dos-santos-66b17b28b/?locale=%5D" target="_blank" class="btn-outline project-btn">
+                <i class="fa-brands fa-linkedin"></i> LinkedIn
+            </a>
+            <a href="mailto:danilo.silva.santos.1312@outlook.com
+?subject=Contato sobre seu portfólio
+&body=Olá Danilo,%0D%0A%0D%0A
+Vi seu portfólio e gostaria de conversar sobre possíveis oportunidades/projetos.%0D%0A
+Segue minha mensagem:%0D%0A%0D%0A
+[Escreva aqui sua proposta ou dúvida]%0D%0A%0D%0A
+Atenciosamente,%0D%0A
+[Seu nome]"
+class="btn-outline project-btn">
+  <i class="fa-solid fa-envelope"></i> Enviar email
+</a>
+        </div>
     </div>
+
+
+
+
+
 </section>
+
+
 {% endblock %}
