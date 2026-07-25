@@ -22,6 +22,8 @@ portfolio-ds/
 db.sqlite3
 media/
 staticfiles/
+GeoLite2-City.mmdb
+*.mmdb
 
 # Environment and secrets
 .env
