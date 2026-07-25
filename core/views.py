@@ -3,7 +3,6 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from django_ratelimit.decorators import ratelimit
 from django.db.models import Count
-from django.shortcuts import render
 from django.http import JsonResponse
 from .models import AccessLog
 from .forms import ContactForm
