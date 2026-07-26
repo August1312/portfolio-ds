@@ -6,7 +6,7 @@ from django.db.models import Count
 from django.http import JsonResponse
 from .models import AccessLog
 from .forms import ContactForm
-from decouple import config
+import os
 import requests
 
 
@@ -22,7 +22,6 @@ def projects(request):
     return render(request, "projects.html")
 
 
-# Limita envios por IP (máx. 3 por minuto)
 @ratelimit(key="ip", rate="3/m", block=False)
 def contact(request):
 
@@ -43,7 +42,7 @@ def contact(request):
 
             # 🔎 Validação do reCAPTCHA
             recaptcha_response = request.POST.get("g-recaptcha-response")
-            recaptcha_secret = config("RECAPTCHA_PRIVATE_KEY")
+            recaptcha_secret = os.environ.get("RECAPTCHA_PRIVATE_KEY")
             verify_url = "https://www.google.com/recaptcha/api/siteverify"
             payload = {"secret": recaptcha_secret, "response": recaptcha_response}
             resp = requests.post(verify_url, data=payload)
@@ -56,13 +55,13 @@ def contact(request):
             # 🔎 Envio de e‑mail
             assunto = f"Novo contato do portfólio: {nome}"
             corpo = f"Nome: {nome}\nEmail: {email}\n\nMensagem:\n{mensagem}"
-            destinatario = config("EMAIL_TO")
+            destinatario = os.environ.get("EMAIL_TO")
 
             try:
                 send_mail(
                     assunto,
                     corpo,
-                    config("EMAIL_HOST_USER"),  # remetente válido
+                    os.environ.get("EMAIL_HOST_USER"),  # remetente válido
                     [destinatario],
                     fail_silently=False,
                 )
