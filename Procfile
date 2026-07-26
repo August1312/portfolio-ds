@@ -1,4 +1,4 @@
-web: gunicorn portfolio_ds.wsgi
+web: gunicorn portfolio.wsgi
 
 
 
