@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+from django.core.mail import send_mail, BadHeaderError
 from django.contrib import messages
 from django_ratelimit.decorators import ratelimit
 from django.db.models import Count
@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from .models import AccessLog
 from .forms import ContactForm
 from decouple import config
+import requests
 
 
 def home(request):
@@ -20,8 +21,9 @@ def about(request):
 def projects(request):
     return render(request, "projects.html")
 
-# O decorador `ratelimit` limita o número de envios de formulários por endereço IP.
-@ratelimit(key="ip", rate="3/m", block=False)  
+
+# Limita envios por IP (máx. 3 por minuto)
+@ratelimit(key="ip", rate="3/m", block=False)
 def contact(request):
 
     if getattr(request, "limited", False):
@@ -39,15 +41,28 @@ def contact(request):
             email = form.cleaned_data["email"]
             mensagem = form.cleaned_data["mensagem"]
 
+            # 🔎 Validação do reCAPTCHA
+            recaptcha_response = request.POST.get("g-recaptcha-response")
+            recaptcha_secret = config("RECAPTCHA_PRIVATE_KEY")
+            verify_url = "https://www.google.com/recaptcha/api/siteverify"
+            payload = {"secret": recaptcha_secret, "response": recaptcha_response}
+            resp = requests.post(verify_url, data=payload)
+            result = resp.json()
+
+            if not result.get("success"):
+                messages.error(request, "❌ Falha na validação do reCAPTCHA. Tente novamente.")
+                return render(request, "contact.html", {"form": form})
+
+            # 🔎 Envio de e‑mail
             assunto = f"Novo contato do portfólio: {nome}"
             corpo = f"Nome: {nome}\nEmail: {email}\n\nMensagem:\n{mensagem}"
-            destinatario = config('EMAIL_TO')
-            
+            destinatario = config("EMAIL_TO")
+
             try:
                 send_mail(
                     assunto,
                     corpo,
-                    email,
+                    config("EMAIL_HOST_USER"),  # remetente válido
                     [destinatario],
                     fail_silently=False,
                 )
@@ -55,8 +70,8 @@ def contact(request):
                 form = ContactForm()
             except BadHeaderError:
                 messages.error(request, "❌ Falha: cabeçalho inválido.")
-            except Exception:
-                messages.error(request, "❌ Falha ao enviar e-mail. Tente novamente.")
+            except Exception as e:
+                messages.error(request, f"❌ Falha ao enviar e-mail: {str(e)}")
     else:
         form = ContactForm()
 
