@@ -9,7 +9,7 @@ class AccessLogMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
         try:
-            self.reader = geoip2.database.Reader(setting.GEOIP_PATH)
+            self.reader = geoip2.database.Reader(settings.GEOIP_PATH)
         except FileNotFoundError:
             self.reader = None
 
