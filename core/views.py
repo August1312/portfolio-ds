@@ -35,7 +35,7 @@ def contact(request):
 
     if request.method == "POST":
         form = ContactForm(request.POST)
-        if form.is_valid():  # aqui o captcha já foi validado automaticamente
+        if form.is_valid():  
             nome = form.cleaned_data["nome"]
             email = form.cleaned_data["email"]
             mensagem = form.cleaned_data["mensagem"]
@@ -48,7 +48,7 @@ def contact(request):
                 send_mail(
                     assunto,
                     corpo,
-                    os.environ.get("EMAIL_HOST_USER"),  # remetente válido
+                    os.environ.get("EMAIL_HOST_USER"),  
                     [destinatario],
                     fail_silently=False,
                 )
