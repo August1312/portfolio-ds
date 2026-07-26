@@ -1,6 +1,7 @@
 import geoip2.database
 import os
 from .models import AccessLog
+from django.conf import settings
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -8,7 +9,7 @@ class AccessLogMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
         try:
-            self.reader = geoip2.database.Reader(GEOIP_PATH)
+            self.reader = geoip2.database.Reader(setting.GEOIP_PATH)
         except FileNotFoundError:
             self.reader = None
 
