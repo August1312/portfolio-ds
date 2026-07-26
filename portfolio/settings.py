@@ -1,14 +1,15 @@
 from pathlib import Path
 from decouple  import config 
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-dev-key'
 
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0', '[::1]']
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0', '[::1]', '.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000', 'https://*.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -52,10 +53,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
+    )
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -80,6 +80,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'core' / 'static']
+STATIC_ROOT = BASE_DIR / "staticfiles" 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
