@@ -5,8 +5,6 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-import os
-
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 DATABASE_URL = os.environ.get("DATABASE_URL")
@@ -59,9 +57,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
-    )
+    "default": dj_database_url.config(default=DATABASE_URL)
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -97,8 +93,8 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FORM_EMAIL = EMAIL_HOST_USER
 
-RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
-RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
+RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
