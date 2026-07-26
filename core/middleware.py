@@ -3,8 +3,6 @@ import os
 from .models import AccessLog
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-GEOIP_PATH = os.path.join(BASE_DIR, "geoip", "GeoLite2-City.mmdb")
-
 
 class AccessLogMiddleware:
     def __init__(self, get_response):

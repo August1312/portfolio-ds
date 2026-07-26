@@ -1,6 +1,7 @@
 from pathlib import Path
 from decouple  import config 
 import dj_database_url
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -94,3 +95,11 @@ DEFAULT_FORM_EMAIL = EMAIL_HOST_USER
 
 RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Se existir o arquivo em /etc/secrets, usa esse caminho
+if os.path.exists("/etc/secrets/GeoLite2-City.mmdb"):
+    GEOIP_PATH = "/etc/secrets/GeoLite2-City.mmdb"
+else:
+    GEOIP_PATH = os.path.join(BASE_DIR, "geoip", "GeoLite2-City.mmdb")
