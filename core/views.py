@@ -35,24 +35,11 @@ def contact(request):
 
     if request.method == "POST":
         form = ContactForm(request.POST)
-        if form.is_valid():
+        if form.is_valid():  # aqui o captcha já foi validado automaticamente
             nome = form.cleaned_data["nome"]
             email = form.cleaned_data["email"]
             mensagem = form.cleaned_data["mensagem"]
 
-            # 🔎 Validação do reCAPTCHA
-            recaptcha_response = request.POST.get("g-recaptcha-response")
-            recaptcha_secret = os.environ.get("RECAPTCHA_PRIVATE_KEY")
-            verify_url = "https://www.google.com/recaptcha/api/siteverify"
-            payload = {"secret": recaptcha_secret, "response": recaptcha_response}
-            resp = requests.post(verify_url, data=payload)
-            result = resp.json()
-
-            if not result.get("success"):
-                messages.error(request, "❌ Falha na validação do reCAPTCHA. Tente novamente.")
-                return render(request, "contact.html", {"form": form})
-
-            # 🔎 Envio de e‑mail
             assunto = f"Novo contato do portfólio: {nome}"
             corpo = f"Nome: {nome}\nEmail: {email}\n\nMensagem:\n{mensagem}"
             destinatario = os.environ.get("EMAIL_TO")
