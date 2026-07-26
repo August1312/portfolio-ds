@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic',
     'core',
     'django_recaptcha',
 ]
@@ -95,6 +96,8 @@ DEFAULT_FORM_EMAIL = EMAIL_HOST_USER
 
 RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY")
 RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
+
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
