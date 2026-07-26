@@ -5,9 +5,13 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config('SECRET_KEY', default='uma_chave_secreta_bem_grande_e_unica')
+import os
 
-DEBUG = config('DEBUG', default=False, cast=bool)
+SECRET_KEY = os.environ.get("SECRET_KEY")
+DEBUG = os.environ.get("DEBUG", "False") == "True"
+DATABASE_URL = os.environ.get("DATABASE_URL")
+GEOIP_PATH = os.environ.get("GEOIP_PATH", os.path.join(BASE_DIR, "geoip", "GeoLite2-City.mmdb"))
+
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0', '[::1]', '.onrender.com']
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000', 'https://*.onrender.com']
