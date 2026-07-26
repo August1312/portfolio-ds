@@ -1,3 +1,3 @@
-web: gunicorn portfolio_danilo_silva.wsgi
+web: gunicorn portfolio-ds.wsgi
 
 
