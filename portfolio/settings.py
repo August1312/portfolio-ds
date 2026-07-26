@@ -4,7 +4,7 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-dev-key'
+SECRET_KEY = config('SECRET_KEY', default='uma_chave_secreta_bem_grande_e_unica')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
