@@ -44,12 +44,15 @@ def contact(request):
 
             assunto = f"Novo contato do portfólio: {nome}"
             corpo = f"Nome: {nome}\nEmail: {email}\n\nMensagem:\n{mensagem}"
-            destinatario = os.environ.get("EMAIL_TO")
+            destinatario = (os.environ.get("EMAIL_TO") or "").strip()
+            remetente = (os.environ.get("DEFAULT_FROM_EMAIL") or os.environ.get("EMAIL_HOST_USER") or "").strip()
+            smtp_user = (os.environ.get("EMAIL_HOST_USER") or "").strip()
+            smtp_password = (os.environ.get("EMAIL_HOST_PASSWORD") or "").strip()
 
-            if not destinatario:
+            if not destinatario or not remetente or not smtp_user or not smtp_password:
                 messages.error(
                     request,
-                    "❌ E-mail de destino não configurado. Configure EMAIL_TO no Render.",
+                    "❌ O envio de e-mail não está configurado no Render. Verifique EMAIL_TO, DEFAULT_FROM_EMAIL, EMAIL_HOST_USER e EMAIL_HOST_PASSWORD.",
                 )
                 return render(request, "contact.html", {"form": form})
 
@@ -57,7 +60,7 @@ def contact(request):
                 send_mail(
                     assunto,
                     corpo,
-                    os.environ.get("DEFAULT_FROM_EMAIL") or os.environ.get("EMAIL_HOST_USER"),
+                    remetente,
                     [destinatario],
                     fail_silently=False,
                 )
