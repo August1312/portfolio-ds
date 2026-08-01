@@ -5,7 +5,8 @@ from django.conf import settings
 from django.contrib import messages
 from django.db.models import Count
 from django.http import JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import render
+from django.views.decorators.http import require_GET, require_http_methods
 from django_ratelimit.decorators import ratelimit
 
 from .forms import ContactForm
@@ -38,28 +39,38 @@ def send_contact_via_resend(subject, body, recipient_email, sender_email):
     return response
 
 
+def get_country_analytics_data():
+    return (
+        AccessLog.objects.values("country")
+        .annotate(total=Count("id"))
+        .order_by("-total")
+    )
+
+
+@require_GET
 def home(request):
     return render(request, "home.html")
 
 
+@require_GET
 def about(request):
     return render(request, "about.html")
 
 
+@require_GET
 def projects(request):
     return render(request, "projects.html")
 
 
+@require_http_methods(["GET", "POST"])
 @ratelimit(key="ip", rate="3/m", block=False)
 def contact(request):
-
     if getattr(request, "limited", False):
         messages.error(
             request,
             "❌ Você enviou muitos formulários em pouco tempo. Aguarde antes de tentar novamente.",
         )
-        form = ContactForm()
-        return render(request, "contact.html", {"form": form})
+        return render(request, "contact.html", {"form": ContactForm()})
 
     if request.method == "POST":
         form = ContactForm(request.POST)
@@ -100,19 +111,11 @@ def contact(request):
     return render(request, "contact.html", {"form": form})
 
 
+@require_GET
 def analytics(request):
-    data = (
-        AccessLog.objects.values("country")
-        .annotate(total=Count("id"))
-        .order_by("-total")
-    )
-    return render(request, "analytics.html", {"data": data})
+    return render(request, "analytics.html", {"data": get_country_analytics_data()})
 
 
+@require_GET
 def analytics_data(request):
-    data = (
-        AccessLog.objects.values("country")
-        .annotate(total=Count("id"))
-        .order_by("-total")
-    )
-    return JsonResponse(list(data), safe=False)
+    return JsonResponse(list(get_country_analytics_data()), safe=False)
