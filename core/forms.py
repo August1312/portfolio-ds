@@ -1,7 +1,4 @@
 from django import forms
-from django.conf import settings
-from django_recaptcha.fields import ReCaptchaField
-from django_recaptcha.widgets import ReCaptchaV2Checkbox
 
 
 class ContactForm(forms.Form):
@@ -27,15 +24,3 @@ class ContactForm(forms.Form):
             "placeholder": "Sua mensagem"
         })
     )
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        if not settings.RECAPTCHA_PUBLIC_KEY or not settings.RECAPTCHA_PRIVATE_KEY:
-            self.fields.pop("captcha", None)
-            return
-
-        self.fields["captcha"] = ReCaptchaField(
-            widget=ReCaptchaV2Checkbox,
-            required=True,
-        )
