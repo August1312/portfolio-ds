@@ -3,14 +3,11 @@ import os
 import requests
 from django.conf import settings
 from django.contrib import messages
-from django.db.models import Count
-from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.http import require_GET, require_http_methods
 from django_ratelimit.decorators import ratelimit
 
 from .forms import ContactForm
-from .models import AccessLog
 
 
 def send_contact_via_resend(subject, body, recipient_email, sender_email):
@@ -37,14 +34,6 @@ def send_contact_via_resend(subject, body, recipient_email, sender_email):
         raise RuntimeError(f"Erro Resend: {response.status_code} - {response.text}")
 
     return response
-
-
-def get_country_analytics_data():
-    return (
-        AccessLog.objects.values("country")
-        .annotate(total=Count("id"))
-        .order_by("-total")
-    )
 
 
 @require_GET
@@ -109,13 +98,3 @@ def contact(request):
         form = ContactForm()
 
     return render(request, "contact.html", {"form": form})
-
-
-@require_GET
-def analytics(request):
-    return render(request, "analytics.html", {"data": get_country_analytics_data()})
-
-
-@require_GET
-def analytics_data(request):
-    return JsonResponse(list(get_country_analytics_data()), safe=False)

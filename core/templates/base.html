@@ -42,7 +42,6 @@
             <a href="{% url 'about' %}" class="nav-link {% if request.path == '/sobre/' %}active{% endif %}"><i class="fa-solid fa-user"></i>Sobre Mim</a>
             <a href="{% url 'projects' %}" class="nav-link {% if request.path == '/projetos/' %}active{% endif %}"><i class="fa-solid fa-folder-open"></i>Projetos</a>
             <a href="{% url 'contact' %}" class="nav-link {% if request.path == '/contato/' %}active{% endif %}"><i class="fa-solid fa-envelope"></i>Contato</a>
-            <a href="{% url 'analytics' %}" class="nav-link {% if request.path == '/analytics/' %}active{% endif %}"><i class="fa-solid fa-chart-column"></i>Analytics</a>
         </div>
     </nav>
     {% block content %}{% endblock %}
