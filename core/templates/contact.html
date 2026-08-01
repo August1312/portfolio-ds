@@ -25,16 +25,30 @@
                 {% endfor %}
             </div>
             {% endif %}
+
             <form method="post" class="contact-form">
                 {% csrf_token %}
-                {{ form.nome }}
-                {{ form.email }}
-                {{ form.mensagem }}
-                <button type="submit" class="btn-primary">Enviar</button>
+
+                <div class="field-group">
+                    <label for="{{ form.nome.id_for_label }}">Nome</label>
+                    {{ form.nome }}
+                </div>
+
+                <div class="field-group">
+                    <label for="{{ form.email.id_for_label }}">E-mail</label>
+                    {{ form.email }}
+                </div>
+
+                <div class="field-group">
+                    <label for="{{ form.mensagem.id_for_label }}">Mensagem</label>
+                    {{ form.mensagem }}
+                </div>
+
+                <button type="submit" class="btn-primary contact-submit">Enviar mensagem</button>
             </form>
         </div>
 
-        <div class="hero-actions">
+        <div class="hero-actions contact-links">
             <a href="https://github.com/August1312" target="_blank" rel="noreferrer" class="btn-outline project-btn">
                 <i class="fa-brands fa-github"></i> GitHub
             </a>
@@ -42,23 +56,11 @@
                 class="btn-outline project-btn">
                 <i class="fa-brands fa-linkedin"></i> LinkedIn
             </a>
-            <a href="mailto:danilo.silva.santos.1312@outlook.com
-?subject=Contato sobre seu portfólio
-&body=Olá Danilo,%0D%0A%0D%0A
-Vi seu portfólio e gostaria de conversar sobre possíveis oportunidades/projetos.%0D%0A
-Segue minha mensagem:%0D%0A%0D%0A
-[Escreva aqui sua proposta ou dúvida]%0D%0A%0D%0A
-Atenciosamente,%0D%0A
-[Seu nome]" class="btn-outline project-btn">
+            <a href="mailto:danilo.silva.santos.1312@outlook.com?subject=Contato%20sobre%20seu%20portf%C3%B3lio&body=Ol%C3%A1%20Danilo%2C%0D%0A%0D%0AVi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20poss%C3%ADveis%20oportunidades%2Fprojetos.%0D%0ASegue%20minha%20mensagem%3A%0D%0A%0D%0A%5BEscreva%20aqui%20sua%20proposta%20ou%20d%C3%BAvida%5D%0D%0A%0D%0AAtenciosamente%2C%0D%0A%5BSeu%20nome%5D" class="btn-outline project-btn">
                 <i class="fa-solid fa-envelope"></i> Enviar email
             </a>
         </div>
     </div>
-
-
-
-
-
 </section>
 
 

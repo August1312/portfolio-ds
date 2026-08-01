@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfólio profissional de Danilo Silva dos Santos com projetos, contato e analytics.">
+    <meta name="description" content="Portfólio profissional de Danilo Silva dos Santos com projetos, contato e soluções digitais.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Portfólio - Danilo Silva dos Santos">
     <meta property="og:title" content="Portfólio - Danilo Silva dos Santos">
-    <meta property="og:description" content="Portfólio profissional de Danilo Silva dos Santos com projetos, contato e analytics.">
+    <meta property="og:description" content="Portfólio profissional de Danilo Silva dos Santos com projetos, contato e soluções digitais.">
     <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/roles-illustration.png' %}">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Portfólio - Danilo Silva dos Santos">
-    <meta name="twitter:description" content="Portfólio profissional de Danilo Silva dos Santos com projetos, contato e analytics.">
+    <meta name="twitter:description" content="Portfólio profissional de Danilo Silva dos Santos com projetos, contato e soluções digitais.">
     <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/roles-illustration.png' %}">
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
     <link rel="icon" type="image/svg+xml" href="{% static 'images/favicon.svg' %}">
@@ -45,27 +45,6 @@
         </div>
     </nav>
     {% block content %}{% endblock %}
-    <script>
-        const navToggle = document.querySelector('.nav-toggle');
-        const navLinks = document.querySelector('.nav-links');
-
-        if (navToggle && navLinks) {
-            navToggle.addEventListener('click', () => {
-                const isOpen = navLinks.classList.toggle('open');
-                navToggle.classList.toggle('open', isOpen);
-                navToggle.setAttribute('aria-expanded', String(isOpen));
-                navToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
-            });
-
-            navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('open');
-                    navToggle.classList.remove('open');
-                    navToggle.setAttribute('aria-expanded', 'false');
-                    navToggle.setAttribute('aria-label', 'Abrir menu');
-                });
-            });
-        }
-    </script>
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html> 
