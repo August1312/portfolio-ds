@@ -1,20 +1,28 @@
 from pathlib import Path
-from decouple  import config 
-import dj_database_url
 import os
+
+import dj_database_url
+from decouple import config
 from dotenv import load_dotenv
+
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
-DEBUG = os.environ.get("DEBUG", "False") == "True"
-DATABASE_URL = os.environ.get("DATABASE_URL")
-GEOIP_PATH = os.environ.get("GEOIP_PATH", os.path.join(BASE_DIR, "geoip", "GeoLite2-City.mmdb"))
+SECRET_KEY = config("SECRET_KEY", default="dev-secret-key-change-me")
+DEBUG = config("DEBUG", default=False, cast=bool)
+DATABASE_URL = config("DATABASE_URL", default="sqlite:///" + str(BASE_DIR / "db.sqlite3"))
+GEOIP_PATH = config(
+    "GEOIP_PATH",
+    default=str(BASE_DIR / "geoip" / "GeoLite2-City.mmdb"),
+)
 
-
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0', '[::1]', '.onrender.com']
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://localhost:8000', 'https://*.onrender.com']
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "0.0.0.0", "[::1]", ".onrender.com"]
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:8000",
+    "http://localhost:8000",
+    "https://*.onrender.com",
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -88,24 +96,22 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
+EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="noreply@localhost")
+EMAIL_BACKEND = (
+    "django.core.mail.backends.console.EmailBackend"
+    if not EMAIL_HOST_USER or not EMAIL_HOST_PASSWORD
+    else "django.core.mail.backends.smtp.EmailBackend"
+)
+EMAIL_HOST = config("EMAIL_HOST", default="smtp.sendgrid.net")
+EMAIL_PORT = config("EMAIL_PORT", default=587, cast=int)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
 
-RECAPTCHA_PUBLIC_KEY = os.environ.get("RECAPTCHA_PUBLIC_KEY")
-RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
+RECAPTCHA_PUBLIC_KEY = config("RECAPTCHA_PUBLIC_KEY", default="")
+RECAPTCHA_PRIVATE_KEY = config("RECAPTCHA_PRIVATE_KEY", default="")
 
-
-
-BASE_DIR = Path(__file__).resolve().parent.parent
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# Se existir o arquivo em /etc/secrets, usa esse caminho
 if os.path.exists("/etc/secrets/GeoLite2-City.mmdb"):
     GEOIP_PATH = "/etc/secrets/GeoLite2-City.mmdb"
-else:
-    GEOIP_PATH = os.path.join(BASE_DIR, "geoip", "GeoLite2-City.mmdb")

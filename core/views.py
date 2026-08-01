@@ -1,13 +1,15 @@
-from django.shortcuts import render, redirect
-from django.core.mail import send_mail, BadHeaderError
+import os
+
+import requests
 from django.contrib import messages
-from django_ratelimit.decorators import ratelimit
+from django.core.mail import BadHeaderError, send_mail
 from django.db.models import Count
 from django.http import JsonResponse
-from .models import AccessLog
+from django.shortcuts import redirect, render
+from django_ratelimit.decorators import ratelimit
+
 from .forms import ContactForm
-import os
-import requests
+from .models import AccessLog
 
 
 def home(request):
@@ -35,7 +37,7 @@ def contact(request):
 
     if request.method == "POST":
         form = ContactForm(request.POST)
-        if form.is_valid():  
+        if form.is_valid():
             nome = form.cleaned_data["nome"]
             email = form.cleaned_data["email"]
             mensagem = form.cleaned_data["mensagem"]
@@ -44,11 +46,18 @@ def contact(request):
             corpo = f"Nome: {nome}\nEmail: {email}\n\nMensagem:\n{mensagem}"
             destinatario = os.environ.get("EMAIL_TO")
 
+            if not destinatario:
+                messages.error(
+                    request,
+                    "❌ E-mail de destino não configurado. Configure EMAIL_TO no Render.",
+                )
+                return render(request, "contact.html", {"form": form})
+
             try:
                 send_mail(
                     assunto,
                     corpo,
-                    os.environ.get("EMAIL_HOST_USER"),  
+                    os.environ.get("DEFAULT_FROM_EMAIL") or os.environ.get("EMAIL_HOST_USER"),
                     [destinatario],
                     fail_silently=False,
                 )
@@ -56,6 +65,11 @@ def contact(request):
                 form = ContactForm()
             except BadHeaderError:
                 messages.error(request, "❌ Falha: cabeçalho inválido.")
+            except (ConnectionError, TimeoutError, OSError, ValueError) as e:
+                messages.error(
+                    request,
+                    "❌ Não foi possível enviar o e-mail neste momento. Verifique as variáveis SMTP do Render.",
+                )
             except Exception as e:
                 messages.error(request, f"❌ Falha ao enviar e-mail: {str(e)}")
     else:
